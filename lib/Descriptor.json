@@ -1,0 +1,234 @@
+{
+	"openapi": "3.0.2",
+	"info": {
+		"title": "node-pluginsmanager-plugin-tradfri",
+		"version": "1.0.0",
+		"description": "A plugin to manage Tradfri stuff for node-pluginsmanager",
+		"contact": {
+			"name": "Sébastien VIDAL",
+			"url": "https://github.com/Psychopoulet/node-pluginsmanager-plugin-tradfri/issues"
+		},
+		"license": {
+			"name": "ISC",
+			"url": "https://en.wikipedia.org/wiki/ISC_license"
+		}
+	},
+	"paths": {
+		"/node-pluginsmanager-plugin-tradfri/descriptor": {
+			"get": {
+				"description": "",
+				"summary": "Return parsed descriptor",
+				"responses": {
+					"200": {
+						"description": "Returned descriptor",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/node-pluginsmanager-plugin-tradfri/api/devices": {
+			"get": {
+				"description": "",
+				"summary": "Return all running tradfri",
+				"operationId": "getAllDevices",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Device"
+									}
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/node-pluginsmanager-plugin-tradfri/api/ip": {
+			"get": {
+				"description": "",
+				"summary": "Get the gateway IP",
+				"operationId": "getIP",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"description": "",
+				"summary": "Set the gateway IP",
+				"operationId": "setIP",
+				"responses": {
+					"201": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "void"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/node-pluginsmanager-plugin-tradfri/api/authenticate": {
+			"put": {
+				"description": "",
+				"summary": "Generate the gateway conf",
+				"operationId": "setIP",
+				"responses": {
+					"201": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "void"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+	"events": {
+		"error": {
+			"$ref": "#/components/schemas/Error"
+		},
+		"initialized": {
+			"type": "void"
+		},
+		"released": {
+			"type": "void"
+		}
+	},
+	"components": {
+		"schemas": {
+			"Device": {
+				"description": "Structure for Device",
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer"
+					},
+					"name": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"alive": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"lastSeen": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id", "name", "type", "alive", "createdAt", "lastSeen"
+				]
+			},
+			"Error": {
+				"description": "Structure for Error",
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"code",
+					"message"
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "http://127.0.0.1:3000",
+			"description": "Test server for HTTP requests"
+		},
+		{
+			"url": "ws://127.0.0.1:3001",
+			"description": "Test server for socket requests"
+		}
+	],
+	"externalDocs": {
+		"description": "Find out more about this API",
+		"url": "https://github.com/Psychopoulet/node-pluginsmanager-plugin-tradfri#readme"
+	}
+}
